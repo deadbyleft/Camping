@@ -10,28 +10,44 @@ class RegionSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("금오캠핑 (가제)", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text("지역을 선택해주세요"),
-            SizedBox(height: 20),
-            SizedBox(
-              width: 250,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: 2.5,
-                children: regions.map((region) {
-                  return _buildRegionButton(context, region);
-                }).toList(),
+      // 상단/하단 여백을 좀 더 주기 위해 SafeArea나 Padding 사용
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+          child: Column(
+            children: [
+              // 상단 타이틀
+              Text(
+                "금오캠핑 (가제)",
+                style: TextStyle(
+                  fontSize: 24,  // 글자 크기 키움
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 12),
+              Text(
+                "지역을 선택해주세요",
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              const SizedBox(height: 30),
+
+              // 지역 선택 그리드
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  // 블록들 사이 간격
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  // 가로:세로 비율 (숫자가 클수록 가로가 넓어짐)
+                  childAspectRatio: 2.7,
+                  shrinkWrap: true,
+                  children: regions.map((region) {
+                    return _buildRegionButton(context, region);
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -43,12 +59,21 @@ class RegionSelectionScreen extends StatelessWidget {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(15),
       ),
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/detail', arguments: text);
-        },
-        child: Text(text, style: TextStyle(color: Colors.black, fontSize: 14)),
+      // 버튼 전체를 가운데 정렬
+      child: Center(
+        child: TextButton(
+          onPressed: () {
+            if (text == "경북") {
+              Navigator.pushNamed(context, '/camping_sites_page');
+            } else {
+              Navigator.pushNamed(context, '/detail', arguments: text);
+            }
+          },
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+        ),
       ),
     );
   }

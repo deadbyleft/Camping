@@ -36,9 +36,13 @@ class CampingInfoScreen extends StatelessWidget {
 
             // 예약 현황 버튼
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // 예약 현황 버튼 누르면 detail_screen.dart로 이동 (인자로 '구미' 전달)
+                Navigator.pushNamed(context, '/detail', arguments: '구미');
+              },
               child: Text('예약 현황'),
               style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
                 backgroundColor: Colors.green,
               ),
             ),
@@ -53,8 +57,8 @@ class CampingInfoScreen extends StatelessWidget {
                 Expanded(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      'https://cdn.pixabay.com/photo/2016/11/29/05/08/adventure-1866817_1280.jpg',
+                    child: Image.asset(
+                      'assets/images/camp1.jpg',
                       height: 120,
                       fit: BoxFit.cover,
                     ),
@@ -64,8 +68,8 @@ class CampingInfoScreen extends StatelessWidget {
                 Expanded(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      'https://cdn.pixabay.com/photo/2017/01/20/00/30/camping-1991856_1280.jpg',
+                    child: Image.asset(
+                      'assets/images/camp2.jpg',
                       height: 120,
                       fit: BoxFit.cover,
                     ),
@@ -79,6 +83,7 @@ class CampingInfoScreen extends StatelessWidget {
               onPressed: () {},
               child: Text('후기 작성'),
               style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
                 backgroundColor: Colors.green,
                 minimumSize: Size(double.infinity, 40),
               ),
@@ -112,7 +117,7 @@ class CampingInfoScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-        Text(date, style: TextStyle(color: Colors.orange[600])),
+        Text(date, style: TextStyle(color: Colors.black)),
         Row(
           children: List.generate(5, (index) {
             return Icon(
